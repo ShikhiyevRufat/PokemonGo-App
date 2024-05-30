@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final welcome = welcomeFromJson(jsonString);
-
 import 'dart:convert';
 
 Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
@@ -45,6 +41,11 @@ class Welcome {
         this.nextEvolution,
     });
 
+    @override
+  String toString() {
+    return name!;
+  }
+
     factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
         id: json["id"],
         num: json["num"],
@@ -56,8 +57,8 @@ class Welcome {
         candy: json["candy"],
         candyCount: json["candy_count"],
         egg: json["egg"],
-        spawnChance: json["spawn_chance"]?.toDouble(),
-        avgSpawns: json["avg_spawns"],
+        spawnChance: json["spawn_chance"] == null ? null : (json["spawn_chance"] is int ? json["spawn_chance"].toDouble() : json["spawn_chance"].toDouble()),
+        avgSpawns: json["avg_spawns"] == null ? null : (json["avg_spawns"] is double ? json["avg_spawns"].round() : json["avg_spawns"]),
         spawnTime: json["spawn_time"],
         multipliers: json["multipliers"] == null ? [] : List<double>.from(json["multipliers"]!.map((x) => x?.toDouble())),
         weaknesses: json["weaknesses"] == null ? [] : List<String>.from(json["weaknesses"]!.map((x) => x)),
@@ -102,4 +103,9 @@ class NextEvolution {
         "num": num,
         "name": name,
     };
+
+    @override
+  String toString() {
+    return "$name";
+  }
 }

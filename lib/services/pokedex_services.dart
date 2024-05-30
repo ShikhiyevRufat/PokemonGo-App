@@ -12,13 +12,14 @@ class PokeApi {
     List<Welcome> listPoke = [];
 
     var result = await Dio().get(_url);
-    var pokemonData = jsonDecode(result.data);
+    var pokemonData = jsonDecode(result.data)['pokemon'];
+   
 
     if (pokemonData is List) {
-    listPoke = pokemonData.map((e) => Welcome.fromJson(e)).toList();
+      listPoke = pokemonData.map((e) => Welcome.fromJson(e)).toList();
     }
-    debugPrint(listPoke.length.toString());
 
+    debugPrint(listPoke.first.toString());
 
     return listPoke;
   }
